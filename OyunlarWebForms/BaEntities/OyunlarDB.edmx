@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="OyunlarDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Oyun">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adi" Type="nvarchar(max)" />
+          <Property Name="Maliyeti" Type="float" />
+          <Property Name="Kazanci" Type="float" />
+          <Property Name="YilId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OyunTur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OyunId" Type="int" Nullable="false" />
+          <Property Name="TurId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Adi" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Yil">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Degeri" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_Oyun_dbo_Yil_YilId">
+          <End Role="Yil" Type="Self.Yil" Multiplicity="1" />
+          <End Role="Oyun" Type="Self.Oyun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yil">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Oyun">
+              <PropertyRef Name="YilId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OyunTur_dbo_Oyun_OyunId">
+          <End Role="Oyun" Type="Self.Oyun" Multiplicity="1" />
+          <End Role="OyunTur" Type="Self.OyunTur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oyun">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OyunTur">
+              <PropertyRef Name="OyunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OyunTur_dbo_Tur_TurId">
+          <End Role="Tur" Type="Self.Tur" Multiplicity="1" />
+          <End Role="OyunTur" Type="Self.OyunTur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OyunTur">
+              <PropertyRef Name="TurId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OyunlarDBStoreContainer">
+          <EntitySet Name="Oyun" EntityType="Self.Oyun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OyunTur" EntityType="Self.OyunTur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tur" EntityType="Self.Tur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Yil" EntityType="Self.Yil" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Oyun_dbo_Yil_YilId" Association="Self.FK_dbo_Oyun_dbo_Yil_YilId">
+            <End Role="Yil" EntitySet="Yil" />
+            <End Role="Oyun" EntitySet="Oyun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OyunTur_dbo_Oyun_OyunId" Association="Self.FK_dbo_OyunTur_dbo_Oyun_OyunId">
+            <End Role="Oyun" EntitySet="Oyun" />
+            <End Role="OyunTur" EntitySet="OyunTur" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OyunTur_dbo_Tur_TurId" Association="Self.FK_dbo_OyunTur_dbo_Tur_TurId">
+            <End Role="Tur" EntitySet="Tur" />
+            <End Role="OyunTur" EntitySet="OyunTur" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OyunlarDB" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Oyun">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Maliyeti" Type="Double" />
+          <Property Name="Kazanci" Type="Double" />
+          <Property Name="YilId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Yil" Relationship="Self.FK_dbo_Oyun_dbo_Yil_YilId" FromRole="Oyun" ToRole="Yil" />
+          <NavigationProperty Name="OyunTur" Relationship="Self.FK_dbo_OyunTur_dbo_Oyun_OyunId" FromRole="Oyun" ToRole="OyunTur" />
+        </EntityType>
+        <EntityType Name="OyunTur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OyunId" Type="Int32" Nullable="false" />
+          <Property Name="TurId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Oyun" Relationship="Self.FK_dbo_OyunTur_dbo_Oyun_OyunId" FromRole="OyunTur" ToRole="Oyun" />
+          <NavigationProperty Name="Tur" Relationship="Self.FK_dbo_OyunTur_dbo_Tur_TurId" FromRole="OyunTur" ToRole="Tur" />
+        </EntityType>
+        <EntityType Name="Tur">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Adi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OyunTur" Relationship="Self.FK_dbo_OyunTur_dbo_Tur_TurId" FromRole="Tur" ToRole="OyunTur" />
+        </EntityType>
+        <EntityType Name="Yil">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Degeri" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Oyun" Relationship="Self.FK_dbo_Oyun_dbo_Yil_YilId" FromRole="Yil" ToRole="Oyun" />
+        </EntityType>
+        <Association Name="FK_dbo_Oyun_dbo_Yil_YilId">
+          <End Role="Yil" Type="Self.Yil" Multiplicity="1" />
+          <End Role="Oyun" Type="Self.Oyun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Yil">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Oyun">
+              <PropertyRef Name="YilId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OyunTur_dbo_Oyun_OyunId">
+          <End Role="Oyun" Type="Self.Oyun" Multiplicity="1" />
+          <End Role="OyunTur" Type="Self.OyunTur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Oyun">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OyunTur">
+              <PropertyRef Name="OyunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OyunTur_dbo_Tur_TurId">
+          <End Role="Tur" Type="Self.Tur" Multiplicity="1" />
+          <End Role="OyunTur" Type="Self.OyunTur" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tur">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OyunTur">
+              <PropertyRef Name="TurId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OyunlarContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Oyun" EntityType="Self.Oyun" />
+          <EntitySet Name="OyunTur" EntityType="Self.OyunTur" />
+          <EntitySet Name="Tur" EntityType="Self.Tur" />
+          <EntitySet Name="Yil" EntityType="Self.Yil" />
+          <AssociationSet Name="FK_dbo_Oyun_dbo_Yil_YilId" Association="Self.FK_dbo_Oyun_dbo_Yil_YilId">
+            <End Role="Yil" EntitySet="Yil" />
+            <End Role="Oyun" EntitySet="Oyun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OyunTur_dbo_Oyun_OyunId" Association="Self.FK_dbo_OyunTur_dbo_Oyun_OyunId">
+            <End Role="Oyun" EntitySet="Oyun" />
+            <End Role="OyunTur" EntitySet="OyunTur" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OyunTur_dbo_Tur_TurId" Association="Self.FK_dbo_OyunTur_dbo_Tur_TurId">
+            <End Role="Tur" EntitySet="Tur" />
+            <End Role="OyunTur" EntitySet="OyunTur" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OyunlarDBStoreContainer" CdmEntityContainer="OyunlarContext">
+          <EntitySetMapping Name="Oyun">
+            <EntityTypeMapping TypeName="OyunlarDB.Oyun">
+              <MappingFragment StoreEntitySet="Oyun">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Adi" ColumnName="Adi" />
+                <ScalarProperty Name="Maliyeti" ColumnName="Maliyeti" />
+                <ScalarProperty Name="Kazanci" ColumnName="Kazanci" />
+                <ScalarProperty Name="YilId" ColumnName="YilId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OyunTur">
+            <EntityTypeMapping TypeName="OyunlarDB.OyunTur">
+              <MappingFragment StoreEntitySet="OyunTur">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OyunId" ColumnName="OyunId" />
+                <ScalarProperty Name="TurId" ColumnName="TurId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tur">
+            <EntityTypeMapping TypeName="OyunlarDB.Tur">
+              <MappingFragment StoreEntitySet="Tur">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Adi" ColumnName="Adi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yil">
+            <EntityTypeMapping TypeName="OyunlarDB.Yil">
+              <MappingFragment StoreEntitySet="Yil">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Degeri" ColumnName="Degeri" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

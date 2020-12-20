@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="234964b7f67e4f559b04c1381456227c" Name="Diagram1">
+        <EntityTypeShape EntityType="OyunlarDB.Oyun" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="OyunlarDB.OyunTur" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OyunlarDB.Tur" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OyunlarDB.Yil" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="OyunlarDB.FK_dbo_Oyun_dbo_Yil_YilId" ManuallyRouted="false" />
+        <AssociationConnector Association="OyunlarDB.FK_dbo_OyunTur_dbo_Oyun_OyunId" ManuallyRouted="false" />
+        <AssociationConnector Association="OyunlarDB.FK_dbo_OyunTur_dbo_Tur_TurId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
