@@ -10,13 +10,20 @@ namespace OyunlarWebForms.BaModels
         #region Entity'de bulunan ve veritabanı sütunlarına karşılık gelen özellikler
         public int Id { get; set; }
         public string Adi { get; set; }
-        public Nullable<double> Maliyeti { get; set; }
-        public Nullable<double> Kazanci { get; set; }
+
+        //public Nullable<double> Maliyeti { get; set; }
+        public double? Maliyeti { get; set; }
+
+        //public Nullable<double> Kazanci { get; set; }
+        public double? Kazanci { get; set; }
+
         public int YilId { get; set; }
         #endregion
 
         #region Kendi ihtiyacımız için eklediğimiz özellikler
         public string YilDegeri { get; set; }
+
+        public string KarZarar { get; set; }
         #endregion
     }
 }

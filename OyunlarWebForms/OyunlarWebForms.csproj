@@ -224,6 +224,7 @@
       <DependentUpon>OyunlarDB.tt</DependentUpon>
     </Compile>
     <Compile Include="BaModels\OyunModel.cs" />
+    <Compile Include="BaModels\YilModel.cs" />
     <Compile Include="BaPages\Oyunlar.aspx.cs">
       <DependentUpon>Oyunlar.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
