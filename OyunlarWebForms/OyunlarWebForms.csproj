@@ -126,6 +126,8 @@
       <LastGenOutput>OyunlarDB.cs</LastGenOutput>
     </Content>
     <Content Include="BaPages\Oyunlar.aspx" />
+    <Content Include="BaPages\TurDetayi.aspx" />
+    <Content Include="BaPages\Turler.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -196,6 +198,7 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BaBusiness\TurService.cs" />
     <Compile Include="BaEntities\Oyun.cs">
       <DependentUpon>OyunlarDB.tt</DependentUpon>
     </Compile>
@@ -224,6 +227,7 @@
       <DependentUpon>OyunlarDB.tt</DependentUpon>
     </Compile>
     <Compile Include="BaModels\OyunModel.cs" />
+    <Compile Include="BaModels\TurModel.cs" />
     <Compile Include="BaModels\YilModel.cs" />
     <Compile Include="BaPages\Oyunlar.aspx.cs">
       <DependentUpon>Oyunlar.aspx</DependentUpon>
@@ -231,6 +235,20 @@
     </Compile>
     <Compile Include="BaPages\Oyunlar.aspx.designer.cs">
       <DependentUpon>Oyunlar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BaPages\TurDetayi.aspx.cs">
+      <DependentUpon>TurDetayi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaPages\TurDetayi.aspx.designer.cs">
+      <DependentUpon>TurDetayi.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BaPages\Turler.aspx.cs">
+      <DependentUpon>Turler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaPages\Turler.aspx.designer.cs">
+      <DependentUpon>Turler.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>

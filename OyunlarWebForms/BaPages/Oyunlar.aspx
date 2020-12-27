@@ -36,6 +36,10 @@
 </p>
     <p>
         <asp:Button ID="bDetay" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bDetay_Click" Text="Detay" />
+&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="bDuzenle" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bDuzenle_Click" Text="Düzenle" />
+&nbsp;&nbsp;&nbsp;
+        <asp:Button ID="bSil" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bSil_Click" Text="Sil" />
 </p>
     <p>
         <asp:Label ID="lBilgi" runat="server" ForeColor="Red"></asp:Label>
@@ -63,22 +67,44 @@
         <br />
         <br />
         <asp:Label ID="Label5" runat="server" Text="Adı:"></asp:Label>
-        &nbsp;<asp:TextBox ID="tbAdi" runat="server" Width="350px"></asp:TextBox>
+        &nbsp;<asp:TextBox ID="tbAdiYeni" runat="server" Width="350px"></asp:TextBox>
         <br />
         Maliyeti:
-        <asp:TextBox ID="tbMaliyeti" runat="server" Width="200px"></asp:TextBox>
+        <asp:TextBox ID="tbMaliyetiYeni" runat="server" Width="200px"></asp:TextBox>
         <br />
         Kazancı:
-        <asp:TextBox ID="tbKazanci" runat="server" Width="200px"></asp:TextBox>
+        <asp:TextBox ID="tbKazanciYeni" runat="server" Width="200px"></asp:TextBox>
         <br />
         Yılı:
-        <asp:DropDownList ID="ddlYili" runat="server" Height="22px" Width="125px">
+        <asp:DropDownList ID="ddlYiliYeni" runat="server" Height="22px" Width="125px">
         </asp:DropDownList>
         <br />
         <br />
-        <asp:Button ID="bKaydet" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bKaydet_Click" Text="Kaydet" />
+        <asp:Button ID="bKaydetYeni" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bKaydetYeni_Click" Text="Kaydet" />
         &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="bTemizle" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bTemizle_Click" Text="Temizle" />
+        <asp:Button ID="bTemizleYeni" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bTemizleYeni_Click" Text="Temizle" />
+    </asp:Panel>
+    <asp:Panel ID="pDuzenle" runat="server" BorderStyle="Solid" BorderWidth="1px" Visible="False">
+        <asp:Label ID="Label6" runat="server" Text="Oyun Düzenle" Font-Size="14pt" Font-Underline="True"></asp:Label>
+        <br />
+        <br />
+        <asp:Label ID="Label7" runat="server" Text="Adı:"></asp:Label>
+        &nbsp;<asp:TextBox ID="tbAdiDuzenle" runat="server" Width="350px"></asp:TextBox>
+        <br />
+        Maliyeti:
+        <asp:TextBox ID="tbMaliyetiDuzenle" runat="server" Width="200px"></asp:TextBox>
+        <br />
+        Kazancı:
+        <asp:TextBox ID="tbKazanciDuzenle" runat="server" Width="200px"></asp:TextBox>
+        <br />
+        Yılı:
+        <asp:DropDownList ID="ddlYiliDuzenle" runat="server" Height="22px" Width="125px">
+        </asp:DropDownList>
+        <br />
+        <br />
+        <asp:Button ID="bKaydetDuzenle" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bKaydetDuzenle_Click" Text="Kaydet" />
+        &nbsp;&nbsp;&nbsp;
+        <asp:Button ID="bTemizleDuzenle" runat="server" BackColor="#CE5D5A" ForeColor="White" Text="Temizle" />
     </asp:Panel>
 </p>
 </asp:Content>

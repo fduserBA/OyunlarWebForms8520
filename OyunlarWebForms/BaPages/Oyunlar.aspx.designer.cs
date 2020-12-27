@@ -51,6 +51,24 @@ namespace OyunlarWebForms.BaPages
         protected global::System.Web.UI.WebControls.Button bDetay;
 
         /// <summary>
+        /// bDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button bDuzenle;
+
+        /// <summary>
+        /// bSil control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button bSil;
+
+        /// <summary>
         /// lBilgi control.
         /// </summary>
         /// <remarks>
@@ -150,57 +168,138 @@ namespace OyunlarWebForms.BaPages
         protected global::System.Web.UI.WebControls.Label Label5;
 
         /// <summary>
-        /// tbAdi control.
+        /// tbAdiYeni control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbAdi;
+        protected global::System.Web.UI.WebControls.TextBox tbAdiYeni;
 
         /// <summary>
-        /// tbMaliyeti control.
+        /// tbMaliyetiYeni control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbMaliyeti;
+        protected global::System.Web.UI.WebControls.TextBox tbMaliyetiYeni;
 
         /// <summary>
-        /// tbKazanci control.
+        /// tbKazanciYeni control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbKazanci;
+        protected global::System.Web.UI.WebControls.TextBox tbKazanciYeni;
 
         /// <summary>
-        /// ddlYili control.
+        /// ddlYiliYeni control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlYili;
+        protected global::System.Web.UI.WebControls.DropDownList ddlYiliYeni;
 
         /// <summary>
-        /// bKaydet control.
+        /// bKaydetYeni control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button bKaydet;
+        protected global::System.Web.UI.WebControls.Button bKaydetYeni;
 
         /// <summary>
-        /// bTemizle control.
+        /// bTemizleYeni control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button bTemizle;
+        protected global::System.Web.UI.WebControls.Button bTemizleYeni;
+
+        /// <summary>
+        /// pDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pDuzenle;
+
+        /// <summary>
+        /// Label6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
+
+        /// <summary>
+        /// Label7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label7;
+
+        /// <summary>
+        /// tbAdiDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbAdiDuzenle;
+
+        /// <summary>
+        /// tbMaliyetiDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbMaliyetiDuzenle;
+
+        /// <summary>
+        /// tbKazanciDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbKazanciDuzenle;
+
+        /// <summary>
+        /// ddlYiliDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlYiliDuzenle;
+
+        /// <summary>
+        /// bKaydetDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button bKaydetDuzenle;
+
+        /// <summary>
+        /// bTemizleDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button bTemizleDuzenle;
     }
 }

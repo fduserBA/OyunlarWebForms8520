@@ -2,6 +2,7 @@
 using OyunlarWebForms.BaModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Web;
@@ -24,6 +25,7 @@ namespace OyunlarWebForms.BaPages
 
             pDetay.Visible = false;
             pYeni.Visible = false;
+            pDuzenle.Visible = false;
         }
 
         private void FillGrid()
@@ -141,14 +143,14 @@ namespace OyunlarWebForms.BaPages
 
         protected void lbYeni_Click(object sender, EventArgs e)
         {
-            FillYillar();
+            FillYillar(ddlYiliYeni);
             //pYeni.Visible = !pYeni.Visible;
             pYeni.Visible = true;
         }
 
-        private void FillYillar()
+        private void FillYillar(DropDownList dropDownList)
         {
-            ddlYili.Items.Clear();
+            dropDownList.Items.Clear();
             //var yillarEntity = db.Yil.ToList().OrderByDescending(yil => yil.Degeri).ToList();
             var yillarEntity = db.Yil.OrderByDescending(yil => yil.Degeri).ToList();
             var yillarModel = yillarEntity.Select(yilEntity => new YilModel()
@@ -156,51 +158,55 @@ namespace OyunlarWebForms.BaPages
                 Id = yilEntity.Id,
                 Degeri = yilEntity.Degeri
             }).ToList();
-            ddlYili.DataValueField = "Id";
-            ddlYili.DataTextField = "Degeri";
-            ddlYili.DataSource = yillarModel;
-            ddlYili.DataBind();
-            ddlYili.Items.Insert(0, "-- Seçiniz --");
+            dropDownList.DataValueField = "Id";
+            dropDownList.DataTextField = "Degeri";
+            dropDownList.DataSource = yillarModel;
+            dropDownList.DataBind();
+            dropDownList.Items.Insert(0, "-- Seçiniz --");
         }
 
-        protected void bKaydet_Click(object sender, EventArgs e)
+        protected void bKaydetYeni_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(tbAdi.Text))
+            if (string.IsNullOrWhiteSpace(tbAdiYeni.Text))
             {
                 lBilgi.Text = "Adı boş bırakılamaz!";
+                pYeni.Visible = true;
                 return;
             }
 
             double maliyetValidasyon;
             double kazanciValidasyon;
-            if (!string.IsNullOrWhiteSpace(tbMaliyeti.Text))
+            if (!string.IsNullOrWhiteSpace(tbMaliyetiYeni.Text))
             {
-                if (!double.TryParse(tbMaliyeti.Text.Trim().Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out maliyetValidasyon))
+                if (!double.TryParse(tbMaliyetiYeni.Text.Trim().Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out maliyetValidasyon))
                 {
                     lBilgi.Text = "Maliyet sayısal olmalıdır!";
+                    pYeni.Visible = true;
                     return;
                 }
             }
 
-            if (!string.IsNullOrWhiteSpace(tbKazanci.Text))
+            if (!string.IsNullOrWhiteSpace(tbKazanciYeni.Text))
             {
-                if (!double.TryParse(tbKazanci.Text.Trim().Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out kazanciValidasyon))
+                if (!double.TryParse(tbKazanciYeni.Text.Trim().Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out kazanciValidasyon))
                 {
                     lBilgi.Text = "Kazancı sayısal olmalıdır!";
+                    pYeni.Visible = true;
                     return;
                 }
             }
 
-            if (ddlYili.SelectedIndex == 0) // -- Seçiniz --
+            if (ddlYiliYeni.SelectedIndex == 0) // -- Seçiniz --
             {
                 lBilgi.Text = "Yıl seçiniz";
+                pYeni.Visible = true;
                 return;
             }
 
             OyunModel oyunModel = new OyunModel()
             {
-                Adi = tbAdi.Text.Trim(),
-                YilId = Convert.ToInt32(ddlYili.SelectedValue)
+                Adi = tbAdiYeni.Text.Trim(),
+                YilId = Convert.ToInt32(ddlYiliYeni.SelectedValue)
             };
 
             // 1,2: Türkçe
@@ -208,16 +214,16 @@ namespace OyunlarWebForms.BaPages
             // 1.2: C# double verisi
 
             oyunModel.Maliyeti = null;
-            if (!string.IsNullOrWhiteSpace(tbMaliyeti.Text))
+            if (!string.IsNullOrWhiteSpace(tbMaliyetiYeni.Text))
             {
-                oyunModel.Maliyeti = Convert.ToDouble(tbMaliyeti.Text.Trim().Replace(",", "."), CultureInfo.InvariantCulture);
+                oyunModel.Maliyeti = Convert.ToDouble(tbMaliyetiYeni.Text.Trim().Replace(",", "."), CultureInfo.InvariantCulture);
             }
 
             oyunModel.Kazanci = null;
-            if (!string.IsNullOrWhiteSpace(tbKazanci.Text))
+            if (!string.IsNullOrWhiteSpace(tbKazanciYeni.Text))
             {
                 oyunModel.Kazanci =
-                    Convert.ToDouble(tbKazanci.Text.Trim().Replace(",", "."), CultureInfo.InvariantCulture);
+                    Convert.ToDouble(tbKazanciYeni.Text.Trim().Replace(",", "."), CultureInfo.InvariantCulture);
             }
 
             Oyun oyunEntity = new Oyun()
@@ -234,14 +240,135 @@ namespace OyunlarWebForms.BaPages
             FillGrid();
         }
 
-        protected void bTemizle_Click(object sender, EventArgs e)
+        protected void bTemizleYeni_Click(object sender, EventArgs e)
         {
-            tbAdi.Text = "";
-            tbMaliyeti.Text = String.Empty;
-            tbKazanci.Text = "";
-            ddlYili.SelectedIndex = 0;
+            tbAdiYeni.Text = "";
+            tbMaliyetiYeni.Text = String.Empty;
+            tbKazanciYeni.Text = "";
+            ddlYiliYeni.SelectedIndex = 0;
             lBilgi.Text = "";
             pYeni.Visible = true;
+        }
+
+        protected void bDuzenle_Click(object sender, EventArgs e)
+        {
+            if (gvOyunlar.SelectedIndex == -1)
+            {
+                lBilgi.Text = "Lütfen listeden kayıt seçiniz...";
+                return;
+            }
+
+            FillYillar(ddlYiliDuzenle);
+
+            int id = Convert.ToInt32(gvOyunlar.SelectedRow.Cells[1].Text);
+            Oyun oyunEntity = db.Oyun.Find(id);
+            OyunModel oyunModel = new OyunModel()
+            {
+                Id = oyunEntity.Id,
+                Adi = oyunEntity.Adi,
+                Kazanci = oyunEntity.Kazanci,
+                Maliyeti = oyunEntity.Maliyeti,
+                YilId = oyunEntity.YilId
+            };
+            tbAdiDuzenle.Text = oyunModel.Adi;
+            tbKazanciDuzenle.Text = "";
+            if (oyunModel.Kazanci.HasValue)
+                tbKazanciDuzenle.Text = oyunModel.Kazanci.Value.ToString(CultureInfo.InvariantCulture).Replace(".", ",");
+            tbMaliyetiDuzenle.Text = "";
+            if (oyunModel.Maliyeti.HasValue)
+                tbMaliyetiDuzenle.Text = oyunModel.Maliyeti.Value.ToString(CultureInfo.InvariantCulture).Replace(".", ",");
+            ddlYiliDuzenle.SelectedValue = oyunModel.YilId.ToString();
+
+            pDuzenle.Visible = true;
+        }
+
+        protected void bKaydetDuzenle_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbAdiDuzenle.Text))
+            {
+                lBilgi.Text = "Adı boş bırakılamaz!";
+                pDuzenle.Visible = true;
+                return;
+            }
+
+            double maliyetValidasyon;
+            double kazanciValidasyon;
+            if (!string.IsNullOrWhiteSpace(tbMaliyetiDuzenle.Text))
+            {
+                if (!double.TryParse(tbMaliyetiDuzenle.Text.Trim().Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out maliyetValidasyon))
+                {
+                    lBilgi.Text = "Maliyet sayısal olmalıdır!";
+                    pDuzenle.Visible = true;
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(tbKazanciDuzenle.Text))
+            {
+                if (!double.TryParse(tbKazanciDuzenle.Text.Trim().Replace(",", "."), NumberStyles.Any, CultureInfo.InvariantCulture, out kazanciValidasyon))
+                {
+                    lBilgi.Text = "Kazancı sayısal olmalıdır!";
+                    pDuzenle.Visible = true;
+                    return;
+                }
+            }
+
+            if (ddlYiliDuzenle.SelectedIndex == 0) // -- Seçiniz --
+            {
+                lBilgi.Text = "Yıl seçiniz";
+                pDuzenle.Visible = true;
+                return;
+            }
+
+            OyunModel oyunModel = new OyunModel()
+            {
+                Adi = tbAdiDuzenle.Text.Trim(),
+                YilId = Convert.ToInt32(ddlYiliDuzenle.SelectedValue)
+            };
+
+            // 1,2: Türkçe
+            // 1.2: İngilizce
+            // 1.2: C# double verisi
+
+            oyunModel.Maliyeti = null;
+            if (!string.IsNullOrWhiteSpace(tbMaliyetiDuzenle.Text))
+            {
+                oyunModel.Maliyeti = Convert.ToDouble(tbMaliyetiDuzenle.Text.Trim().Replace(",", "."), CultureInfo.InvariantCulture);
+            }
+
+            oyunModel.Kazanci = null;
+            if (!string.IsNullOrWhiteSpace(tbKazanciDuzenle.Text))
+            {
+                oyunModel.Kazanci =
+                    Convert.ToDouble(tbKazanciDuzenle.Text.Trim().Replace(",", "."), CultureInfo.InvariantCulture);
+            }
+
+            oyunModel.Id = Convert.ToInt32(gvOyunlar.SelectedRow.Cells[1].Text);
+            Oyun oyunEntity = db.Oyun.Find(oyunModel.Id);
+            oyunEntity.Adi = oyunModel.Adi;
+            oyunEntity.Kazanci = oyunModel.Kazanci;
+            oyunEntity.Maliyeti = oyunModel.Maliyeti;
+            oyunEntity.YilId = oyunModel.YilId;
+            db.Entry(oyunEntity).State = EntityState.Modified;
+            db.SaveChanges();
+            lBilgi.Text = "Oyun başarıyla güncellendi.";
+            FillGrid();
+        }
+
+        protected void bSil_Click(object sender, EventArgs e)
+        {
+            if (gvOyunlar.SelectedIndex == -1)
+            {
+                lBilgi.Text = "Lütfen listeden kayıt seçiniz...";
+                return;
+            }
+
+            int id = Convert.ToInt32(gvOyunlar.SelectedRow.Cells[1].Text);
+            Oyun oyunEntity = db.Oyun.Find(id);
+            db.Oyun.Remove(oyunEntity);
+            db.SaveChanges();
+            lBilgi.Text = "Oyun başarıyla silindi.";
+            FillGrid();
         }
     }
 }
