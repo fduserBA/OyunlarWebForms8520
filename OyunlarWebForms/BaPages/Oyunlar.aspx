@@ -18,8 +18,8 @@
                 <asp:CommandField SelectText="Seç" ShowSelectButton="True" />
                 <asp:BoundField DataField="Id" />
                 <asp:BoundField DataField="Adi" HeaderText="Oyun Adı" />
-                <asp:BoundField DataField="Maliyeti" HeaderText="Oyun Maliyeti" />
-                <asp:BoundField DataField="Kazanci" HeaderText="Oyun Kazancı" />
+                <asp:BoundField DataField="Maliyeti" HeaderText="Oyun Maliyeti" DataFormatString="{0:C2}" />
+                <asp:BoundField DataField="Kazanci" HeaderText="Oyun Kazancı" DataFormatString="{0:C2}" />
                 <asp:BoundField DataField="KarZarar" HeaderText="Kar / Zarar" />
                 <asp:BoundField DataField="YilDegeri" HeaderText="Oyun Yılı" />
             </Columns>

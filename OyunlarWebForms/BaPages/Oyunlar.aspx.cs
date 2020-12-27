@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -57,9 +58,10 @@ namespace OyunlarWebForms.BaPages
                 Maliyeti = oyunEntity.Maliyeti,
                 YilId = oyunEntity.YilId,
                 YilDegeri = oyunEntity.Yil.Degeri,
-                KarZarar = oyunEntity.Kazanci != null && oyunEntity.Maliyeti.HasValue ? (oyunEntity.Kazanci.Value - oyunEntity.Maliyeti.Value).ToString(CultureInfo.InvariantCulture).Replace(".", ",") : ""
-                // todo
+                //KarZarar = oyunEntity.Kazanci != null && oyunEntity.Maliyeti.HasValue ? (oyunEntity.Kazanci.Value - oyunEntity.Maliyeti.Value).ToString(CultureInfo.InvariantCulture).Replace(".", ",") : ""
+                KarZarar = oyunEntity.Kazanci.HasValue && oyunEntity.Maliyeti.HasValue ? (oyunEntity.Kazanci.Value - oyunEntity.Maliyeti.Value).ToString("C2", new CultureInfo("tr")) : ""
             }).ToList();
+            // https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings?redirectedfrom=MSDN
 
             gvOyunlar.DataSource = oyunlarModel;
             gvOyunlar.DataBind();
@@ -82,9 +84,39 @@ namespace OyunlarWebForms.BaPages
                 return;
             }
 
-            string id = gvOyunlar.SelectedRow.Cells[1].Text;
+            int id = Convert.ToInt32(gvOyunlar.SelectedRow.Cells[1].Text);
+
             //lBilgi.Text = id;
-            Oyun oyunEntity = db.Oyun.Find(Convert.ToInt32(id));
+
+            Oyun oyunEntity;
+
+            // Sonu OrDefault ile biten LINQ methodları eğer kayıt bulunamazsa null döner. Default ile bitmeyenler kayıt bulunamazsa hata fırlatır.
+            // Where(koşul(lar)) belirtilen koşul(lar)a uygun içerisinde kayıt olmayan, tek kayıt olan veya birden çok kayıt olan bir veri kümesi döner.
+            // Bu küme içerisinden ihtiyaç duyulan kayda SingleOrDefault() veya FirstOrDefault() ile ulaşılabilir.
+            //oyunEntity = db.Oyun.Where(oyun => oyun.Id == id).SingleOrDefault(); // Filtreleme sonucundan tek kayıt getir, birden çok kayıt gelirse hata verir.
+            //oyunEntity = db.Oyun.Where(oyun => oyun.Id == id).FirstOrDefault(); // Filtreleme sonucundan ilk kaydı getir.
+
+            // LastOrDefault() methodu bazı durumlarda hata verebilir. Eğer mutlaka kullanılması gerekiyorsa bu tip durumlarda bir aşağıdaki comment'siz
+            // satırda olduğu gibi kayıtlar belli koşul(lar)a göre azalan olarak sıralanıp ilk kayıt çekilerek son kayda ulaşılmış olur.
+            //oyunEntity = db.Oyun.Where(oyun => oyun.Id == id).LastOrDefault(); // Filtreleme sonucundan son kaydı getir.
+            //oyunEntity = db.Oyun.OrderByDescending(oyun => oyun.Id).Where(oyun => oyun.Id == id).FirstOrDefault(); // Filtreleme sonucundan son kaydı getir.
+
+
+
+            // Aşağıdaki methodlar belirtilen koşul(lar)a uygun tek bir kayıt döner.
+            // Eğer belirtilen koşul(lar)a göre tek bir kayda ulaşılmak isteniyorsa aşağıdaki methodları kullanmak daha doğrudur.
+            //oyunEntity = db.Oyun.FirstOrDefault(oyun => oyun.Id == id); // Filtreleme sonucundan ilk kaydı getir.
+
+            // LastOrDefault(koşul(lar)) methodu bazı durumlarda hata verebilir. Eğer mutlaka kullanılması gerekiyorsa bu tip durumlarda bir aşağıdaki comment'siz
+            // satırda olduğu gibi kayıtlar belli koşul(lar)a göre azalan olarak sıralanıp ilk kayıt çekilerek son kayda ulaşılmış olur.
+            //oyunEntity = db.Oyun.LastOrDefault(oyun => oyun.Id == id); // Filtreleme sonucundan son kaydı getir.
+            //oyunEntity = db.Oyun.OrderByDescending(oyun => oyun.Id).FirstOrDefault(oyun => oyun.Id == id); // Filtreleme sonucundan son kaydı getir.
+
+            //oyunEntity = db.Oyun.SingleOrDefault(oyun => oyun.Id == id); // Filtreleme sonucundan tek kayıt getir, birden çok kayıt gelirse hata verir.
+
+            // Yukarıdaki tüm LINQ methodları List gibi kolleksiyonlarda da kullanılabilir ancak aşğıdaki Find methodu sadece DbSet (Entity Framework) için kullanılabilir.
+            oyunEntity = db.Oyun.Find(id);
+
             OyunModel oyunModel = new OyunModel();
             oyunModel.Id = oyunEntity.Id;
             oyunModel.Adi = oyunEntity.Adi;
