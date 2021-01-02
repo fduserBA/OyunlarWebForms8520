@@ -11,7 +11,7 @@ namespace OyunlarWebForms.BaPages
 {
 
 
-    public partial class TurDetayi
+    public partial class TurDuzenle
     {
 
         /// <summary>
@@ -33,31 +33,31 @@ namespace OyunlarWebForms.BaPages
         protected global::System.Web.UI.WebControls.Label Label3;
 
         /// <summary>
-        /// lAdi control.
+        /// tbAdi control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lAdi;
+        protected global::System.Web.UI.WebControls.TextBox tbAdi;
 
         /// <summary>
-        /// ibDuzenle control.
+        /// bKaydet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibDuzenle;
+        protected global::System.Web.UI.WebControls.Button bKaydet;
 
         /// <summary>
-        /// ibSil control.
+        /// bDetay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ibSil;
+        protected global::System.Web.UI.WebControls.Button bDetay;
 
         /// <summary>
         /// lBilgi control.

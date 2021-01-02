@@ -125,9 +125,14 @@
       <DependentUpon>OyunlarDB.edmx</DependentUpon>
       <LastGenOutput>OyunlarDB.cs</LastGenOutput>
     </Content>
+    <Content Include="BaFiles\delete.png" />
+    <Content Include="BaFiles\edit.png" />
     <Content Include="BaPages\Oyunlar.aspx" />
     <Content Include="BaPages\TurDetayi.aspx" />
+    <Content Include="BaPages\TurDuzenle.aspx" />
+    <Content Include="BaPages\TurEkle.aspx" />
     <Content Include="BaPages\Turler.aspx" />
+    <Content Include="BaPages\TurSil.aspx" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -243,12 +248,33 @@
     <Compile Include="BaPages\TurDetayi.aspx.designer.cs">
       <DependentUpon>TurDetayi.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BaPages\TurDuzenle.aspx.cs">
+      <DependentUpon>TurDuzenle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaPages\TurDuzenle.aspx.designer.cs">
+      <DependentUpon>TurDuzenle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BaPages\TurEkle.aspx.cs">
+      <DependentUpon>TurEkle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaPages\TurEkle.aspx.designer.cs">
+      <DependentUpon>TurEkle.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BaPages\Turler.aspx.cs">
       <DependentUpon>Turler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BaPages\Turler.aspx.designer.cs">
       <DependentUpon>Turler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BaPages\TurSil.aspx.cs">
+      <DependentUpon>TurSil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaPages\TurSil.aspx.designer.cs">
+      <DependentUpon>TurSil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>

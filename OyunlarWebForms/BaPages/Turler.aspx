@@ -4,6 +4,9 @@
     <br />
     <asp:Label ID="Label1" runat="server" Font-Size="14pt" Text="Tür Listesi"></asp:Label>
 </p>
+    <p>
+        <asp:LinkButton ID="lbEkle" runat="server" OnClick="lbEkle_Click">Yeni Tür Ekle</asp:LinkButton>
+</p>
         <asp:GridView ID="gvTurler" runat="server" AutoGenerateColumns="False" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical" Width="700px" OnSelectedIndexChanged="gvTurler_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="White" />
             <Columns>

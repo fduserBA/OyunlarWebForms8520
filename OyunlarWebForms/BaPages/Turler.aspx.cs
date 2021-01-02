@@ -41,5 +41,10 @@ namespace OyunlarWebForms.BaPages
             string id = gvTurler.SelectedRow.Cells[1].Text;
             Response.Redirect("TurDetayi.aspx?id=" + id);
         }
+
+        protected void lbEkle_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("TurEkle.aspx");
+        }
     }
 }
