@@ -61,6 +61,9 @@
         <br />
         Yılı:
         <asp:Label ID="lYili" runat="server"></asp:Label>
+        <br />
+        Oyun Türleri:
+        <asp:Label ID="lTurleri" runat="server"></asp:Label>
     </asp:Panel>
     <asp:Panel ID="pYeni" runat="server" BorderStyle="Solid" BorderWidth="1px" Visible="False">
         <asp:Label ID="Label4" runat="server" Text="Yeni Oyun" Font-Size="14pt" Font-Underline="True"></asp:Label>
@@ -78,6 +81,9 @@
         Yılı:
         <asp:DropDownList ID="ddlYiliYeni" runat="server" Height="22px" Width="125px">
         </asp:DropDownList>
+        <br />
+        Oyun Türleri:
+        <asp:ListBox ID="lbTurleriYeni" runat="server" SelectionMode="Multiple" Width="270px"></asp:ListBox>
         <br />
         <br />
         <asp:Button ID="bKaydetYeni" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bKaydetYeni_Click" Text="Kaydet" />
@@ -101,10 +107,12 @@
         <asp:DropDownList ID="ddlYiliDuzenle" runat="server" Height="22px" Width="125px">
         </asp:DropDownList>
         <br />
+        Oyun Türleri:<asp:CheckBoxList ID="cblTurleriDuzenle" runat="server">
+        </asp:CheckBoxList>
         <br />
-        <asp:Button ID="bKaydetDuzenle" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bKaydetDuzenle_Click" Text="Kaydet" />
+        <asp:Button ID="bKaydetDuzenle" runat="server" BackColor="#CE5D5A" ForeColor="White" Text="Kaydet" OnClick="bKaydetDuzenle_Click" />
         &nbsp;&nbsp;&nbsp;
-        <asp:Button ID="bTemizleDuzenle" runat="server" BackColor="#CE5D5A" ForeColor="White" Text="Temizle" />
+        <asp:Button ID="bTemizleDuzenle" runat="server" BackColor="#CE5D5A" ForeColor="White" OnClick="bTemizleDuzenle_Click" Text="Temizle" />
     </asp:Panel>
 </p>
 </asp:Content>

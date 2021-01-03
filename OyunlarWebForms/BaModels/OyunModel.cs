@@ -36,7 +36,20 @@ namespace OyunlarWebForms.BaModels
         /// <summary>
         /// Entity'den gelen tablo ile ilgili özellik
         /// </summary>
-        public int YilId { get; set; }
+        public int YilId { get; set; } // drop down list
+        #endregion
+
+        #region Entity ile ilişkili entity'ler için eklediğimiz özellikler
+        /// <summary>
+        /// Entity ile ilişkili entity'ler için eklediğimiz özellik
+        /// </summary>
+        public List<int> TurIdleri { get; set; } // list box
+
+        /// <summary>
+        /// Entity ile ilişkili entity'ler için eklediğimiz özellik
+        /// </summary>
+        //public List<string> TurAdlari { get; set; } // label
+        public string TurAdlari { get; set; } // label
         #endregion
 
         #region Kendi ihtiyacımız için eklediğimiz özellikler

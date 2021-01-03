@@ -126,6 +126,23 @@ namespace OyunlarWebForms.BaPages
             oyunModel.Maliyeti = oyunEntity.Maliyeti;
             oyunModel.YilId = oyunEntity.YilId;
             oyunModel.YilDegeri = oyunEntity.Yil.Degeri;
+            //oyunModel.TurAdlari = oyunEntity.OyunTur.Select(oyunTur => oyunTur.Tur.Adi).ToList();
+            //oyunModel.TurAdlari = string.Join(", ", oyunEntity.OyunTur.Select(oyunTur => oyunTur.Tur.Adi).ToList());
+            oyunModel.TurAdlari = string.Join("<br />", oyunEntity.OyunTur.Select(oyunTur => oyunTur.Tur.Adi).ToList());
+
+            //lTurleri.Text = "";
+            lTurleri.Text = "<br />";
+            
+            //foreach (string turAdi in oyunModel.TurAdlari)
+            //{
+            //    //lTurleri.Text += turAdi + ", "; // FPS, RPG, 
+            //    lTurleri.Text += turAdi + "<br />";
+            //}
+            lTurleri.Text += oyunModel.TurAdlari;
+
+            //lTurleri.Text = lTurleri.Text.Trim(',', ' '); // FPS, RPG
+            lTurleri.Text = lTurleri.Text.TrimEnd('<', 'b', 'r', ' ', '/', '>');
+
             lAdi.Text = oyunModel.Adi;
             lMaliyeti.Text = "";
             if (oyunModel.Maliyeti.HasValue) // if (oyunModel.Maliyeti != null)
@@ -144,8 +161,23 @@ namespace OyunlarWebForms.BaPages
         protected void lbYeni_Click(object sender, EventArgs e)
         {
             FillYillar(ddlYiliYeni);
+            FillTurlerListBox(lbTurleriYeni);
             //pYeni.Visible = !pYeni.Visible;
             pYeni.Visible = true;
+        }
+
+        public void FillTurlerListBox(ListBox listBox)
+        {
+            listBox.Items.Clear();
+            var turlerModel = db.Tur.OrderBy(tur => tur.Adi).Select(tur => new TurModel()
+            {
+                Id = tur.Id,
+                Adi = tur.Adi
+            }).ToList();
+            listBox.DataValueField = "Id";
+            listBox.DataTextField = "Adi";
+            listBox.DataSource = turlerModel;
+            listBox.DataBind();
         }
 
         private void FillYillar(DropDownList dropDownList)
@@ -203,11 +235,34 @@ namespace OyunlarWebForms.BaPages
                 return;
             }
 
+            if (lbTurleriYeni.SelectedIndex == -1)
+            {
+                lBilgi.Text = "En az bir tür seçilmelidir!";
+                pYeni.Visible = true;
+                return;
+            }
+
+            if (db.Oyun.Any(oyun => oyun.Adi.ToLower() == tbAdiYeni.Text.ToLower().Trim()))
+            {
+                lBilgi.Text = "Girdiğiniz oyun adına sahip kayıt bulunmaktadır.";
+                pYeni.Visible = true;
+                return;
+            }
+
             OyunModel oyunModel = new OyunModel()
             {
                 Adi = tbAdiYeni.Text.Trim(),
                 YilId = Convert.ToInt32(ddlYiliYeni.SelectedValue)
             };
+
+            oyunModel.TurIdleri = new List<int>();
+            foreach (ListItem item in lbTurleriYeni.Items)
+            {
+                if (item.Selected)
+                {
+                    oyunModel.TurIdleri.Add(Convert.ToInt32(item.Value));
+                }
+            }
 
             // 1,2: Türkçe
             // 1.2: İngilizce
@@ -231,7 +286,12 @@ namespace OyunlarWebForms.BaPages
                 Adi = oyunModel.Adi,
                 Kazanci = oyunModel.Kazanci,
                 Maliyeti = oyunModel.Maliyeti,
-                YilId = oyunModel.YilId
+                YilId = oyunModel.YilId,
+                OyunTur = oyunModel.TurIdleri.Select(turId => new OyunTur()
+                {
+                    OyunId = oyunModel.Id,
+                    TurId = turId
+                }).ToList()
             };
 
             db.Oyun.Add(oyunEntity);
@@ -246,6 +306,10 @@ namespace OyunlarWebForms.BaPages
             tbMaliyetiYeni.Text = String.Empty;
             tbKazanciYeni.Text = "";
             ddlYiliYeni.SelectedIndex = 0;
+            foreach (ListItem item in lbTurleriYeni.Items)
+            {
+                item.Selected = false;
+            }
             lBilgi.Text = "";
             pYeni.Visible = true;
         }
@@ -259,6 +323,7 @@ namespace OyunlarWebForms.BaPages
             }
 
             FillYillar(ddlYiliDuzenle);
+            FillTurlerChechBoxList(cblTurleriDuzenle);
 
             int id = Convert.ToInt32(gvOyunlar.SelectedRow.Cells[1].Text);
             Oyun oyunEntity = db.Oyun.Find(id);
@@ -268,8 +333,22 @@ namespace OyunlarWebForms.BaPages
                 Adi = oyunEntity.Adi,
                 Kazanci = oyunEntity.Kazanci,
                 Maliyeti = oyunEntity.Maliyeti,
-                YilId = oyunEntity.YilId
+                YilId = oyunEntity.YilId,
+                TurIdleri = oyunEntity.OyunTur.Select(oyunTur => oyunTur.TurId).ToList()
             };
+
+            foreach (ListItem item in cblTurleriDuzenle.Items)
+            {
+                foreach (int turId in oyunModel.TurIdleri)
+                {
+                    if (item.Value == turId.ToString())
+                    {
+                        item.Selected = true;
+                        break;
+                    }
+                }
+            }
+
             tbAdiDuzenle.Text = oyunModel.Adi;
             tbKazanciDuzenle.Text = "";
             if (oyunModel.Kazanci.HasValue)
@@ -280,6 +359,20 @@ namespace OyunlarWebForms.BaPages
             ddlYiliDuzenle.SelectedValue = oyunModel.YilId.ToString();
 
             pDuzenle.Visible = true;
+        }
+
+        private void FillTurlerChechBoxList(CheckBoxList checkBoxList)
+        {
+            cblTurleriDuzenle.Items.Clear();
+            var turlerModel = db.Tur.OrderBy(tur => tur.Adi).Select(tur => new TurModel()
+            {
+                Id = tur.Id,
+                Adi = tur.Adi
+            }).ToList();
+            cblTurleriDuzenle.DataValueField = "Id";
+            cblTurleriDuzenle.DataTextField = "Adi";
+            cblTurleriDuzenle.DataSource = turlerModel;
+            cblTurleriDuzenle.DataBind();
         }
 
         protected void bKaydetDuzenle_Click(object sender, EventArgs e)
@@ -320,11 +413,35 @@ namespace OyunlarWebForms.BaPages
                 return;
             }
 
+            if (cblTurleriDuzenle.SelectedIndex == -1)
+            {
+                lBilgi.Text = "En az bir tür kaydı seçilmelidir!";
+                pDuzenle.Visible = true;
+                return;
+            }
+
+            int id = Convert.ToInt32(gvOyunlar.SelectedRow.Cells[1].Text);
+            if (db.Oyun.Any(oyun => oyun.Adi.ToLower() == tbAdiDuzenle.Text.ToLower().Trim() && oyun.Id != id))
+            {
+                lBilgi.Text = "Girdiğiniz oyun adına sahip kayıt bulunmaktadır.";
+                pDuzenle.Visible = true;
+                return;
+            }
+
             OyunModel oyunModel = new OyunModel()
             {
                 Adi = tbAdiDuzenle.Text.Trim(),
                 YilId = Convert.ToInt32(ddlYiliDuzenle.SelectedValue)
             };
+
+            oyunModel.TurIdleri = new List<int>();
+            foreach (ListItem item in cblTurleriDuzenle.Items)
+            {
+                if (item.Selected)
+                {
+                    oyunModel.TurIdleri.Add(Convert.ToInt32(item.Value));
+                }
+            }
 
             // 1,2: Türkçe
             // 1.2: İngilizce
@@ -343,8 +460,16 @@ namespace OyunlarWebForms.BaPages
                     Convert.ToDouble(tbKazanciDuzenle.Text.Trim().Replace(",", "."), CultureInfo.InvariantCulture);
             }
 
-            oyunModel.Id = Convert.ToInt32(gvOyunlar.SelectedRow.Cells[1].Text);
+            oyunModel.Id = id;
             Oyun oyunEntity = db.Oyun.Find(oyunModel.Id);
+
+            db.OyunTur.RemoveRange(oyunEntity.OyunTur.ToList());
+            oyunEntity.OyunTur = oyunModel.TurIdleri.Select(turId => new OyunTur()
+            {
+                OyunId = oyunEntity.Id,
+                TurId = turId
+            }).ToList();
+
             oyunEntity.Adi = oyunModel.Adi;
             oyunEntity.Kazanci = oyunModel.Kazanci;
             oyunEntity.Maliyeti = oyunModel.Maliyeti;
@@ -365,10 +490,25 @@ namespace OyunlarWebForms.BaPages
 
             int id = Convert.ToInt32(gvOyunlar.SelectedRow.Cells[1].Text);
             Oyun oyunEntity = db.Oyun.Find(id);
+            db.OyunTur.RemoveRange(oyunEntity.OyunTur.ToList());
             db.Oyun.Remove(oyunEntity);
             db.SaveChanges();
             lBilgi.Text = "Oyun başarıyla silindi.";
             FillGrid();
+        }
+
+        protected void bTemizleDuzenle_Click(object sender, EventArgs e)
+        {
+            tbAdiDuzenle.Text = "";
+            tbMaliyetiDuzenle.Text = String.Empty;
+            tbKazanciDuzenle.Text = "";
+            ddlYiliDuzenle.SelectedIndex = 0;
+            foreach (ListItem item in cblTurleriDuzenle.Items)
+            {
+                item.Selected = false;
+            }
+            lBilgi.Text = "";
+            pDuzenle.Visible = true;
         }
     }
 }

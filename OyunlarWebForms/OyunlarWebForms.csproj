@@ -203,7 +203,9 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BaBusiness\Islem.cs" />
     <Compile Include="BaBusiness\TurService.cs" />
+    <Compile Include="BaBusiness\YilService.cs" />
     <Compile Include="BaEntities\Oyun.cs">
       <DependentUpon>OyunlarDB.tt</DependentUpon>
     </Compile>

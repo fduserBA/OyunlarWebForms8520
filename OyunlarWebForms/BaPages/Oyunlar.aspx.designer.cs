@@ -141,6 +141,15 @@ namespace OyunlarWebForms.BaPages
         protected global::System.Web.UI.WebControls.Label lYili;
 
         /// <summary>
+        /// lTurleri control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lTurleri;
+
+        /// <summary>
         /// pYeni control.
         /// </summary>
         /// <remarks>
@@ -202,6 +211,15 @@ namespace OyunlarWebForms.BaPages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlYiliYeni;
+
+        /// <summary>
+        /// lbTurleriYeni control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lbTurleriYeni;
 
         /// <summary>
         /// bKaydetYeni control.
@@ -283,6 +301,15 @@ namespace OyunlarWebForms.BaPages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlYiliDuzenle;
+
+        /// <summary>
+        /// cblTurleriDuzenle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBoxList cblTurleriDuzenle;
 
         /// <summary>
         /// bKaydetDuzenle control.
