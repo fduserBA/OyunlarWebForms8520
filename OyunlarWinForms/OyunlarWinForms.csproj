@@ -62,11 +62,19 @@
     <Compile Include="1_Entities\OyunlarDB.cs" />
     <Compile Include="1_Entities\OyunTur.cs" />
     <Compile Include="1_Entities\Tur.cs" />
+    <Compile Include="2_Business\Enums\Islem.cs" />
     <Compile Include="2_Business\Models\OyunModel.cs" />
     <Compile Include="2_Business\Models\TurModel.cs" />
     <Compile Include="2_Business\Models\YilModel.cs" />
     <Compile Include="2_Business\Services\OyunService.cs" />
+    <Compile Include="2_Business\Services\TurService.cs" />
     <Compile Include="2_Business\Services\YilService.cs" />
+    <Compile Include="3_UserInterface\OyunEkle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="3_UserInterface\OyunEkle.Designer.cs">
+      <DependentUpon>OyunEkle.cs</DependentUpon>
+    </Compile>
     <Compile Include="3_UserInterface\Oyunlar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +89,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="3_UserInterface\OyunEkle.resx">
+      <DependentUpon>OyunEkle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="3_UserInterface\Oyunlar.resx">
       <DependentUpon>Oyunlar.cs</DependentUpon>
     </EmbeddedResource>
