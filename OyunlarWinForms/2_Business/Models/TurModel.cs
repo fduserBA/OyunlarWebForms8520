@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace OyunlarWinForms._2_Business.Models
+{
+    public class TurModel
+    {
+        public int Id { get; set; }
+
+        public string Adi { get; set; }
+    }
+}

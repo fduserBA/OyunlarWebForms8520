@@ -55,6 +55,7 @@
                         <li><a runat="server" href="~/Contact">Contact</a></li>--%>
                         <li><a runat="server" href="~/BaPages/Oyunlar.aspx">Oyun Listesi</a></li>
                         <li><a runat="server" href="~/BaPages/Turler.aspx">Tür Listesi</a></li>
+                        <li><a runat="server" href="~/BaPages/Yillar.aspx">Yıl Listesi</a></li>
                     </ul>
                 </div>
             </div>

@@ -106,7 +106,7 @@ namespace OyunlarWebForms.BaBusiness
                 var entity = db.Yil.Find(id);
                 if (entity.Oyun != null && entity.Oyun.Count > 0)
                 {
-                    return Islem.BasarisizKayitVar;
+                    return Islem.BasarisizIliskiliKayitVar;
                 }
                 db.Yil.Remove(entity);
                 db.SaveChanges();

@@ -11,5 +11,6 @@ namespace OyunlarWebForms.BaBusiness
         Basarili = 1,
         BasarisizBosDeger,
         BasarisizKayitVar,
+        BasarisizIliskiliKayitVar
     }
 }
